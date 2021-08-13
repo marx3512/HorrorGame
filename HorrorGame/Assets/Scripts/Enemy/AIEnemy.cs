@@ -35,7 +35,6 @@ public class AIEnemy : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (!playerInSightRange && playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 
     private void Patrolling()
@@ -45,7 +44,7 @@ public class AIEnemy : MonoBehaviour
         if (walkPointSet) agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
+        Debug.Log(distanceToWalkPoint.magnitude);
         if (distanceToWalkPoint.magnitude < 1f) walkPointSet = false;
 	}
 
@@ -62,10 +61,5 @@ public class AIEnemy : MonoBehaviour
     private void ChasePlayer()
 	{
         agent.SetDestination(player.position);
-	}
-
-    private void AttackPlayer()
-	{
-
 	}
 }
