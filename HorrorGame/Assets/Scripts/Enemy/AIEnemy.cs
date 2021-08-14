@@ -5,22 +5,18 @@ using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Transform player;
-    [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
+    public NavMeshAgent agent;
+    public Transform player;
+    public LayerMask whatIsGround, whatIsPlayer;
 
     //Patrolling
     public Vector3 walkPoint;
-    bool walkPointSet;
+    [HideInInspector] public bool walkPointSet;
     public float walkPointRange;
 
-    //Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttack;
-
     //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public float sightRange;
+    public bool playerInSightRange;
 
 	private void Awake()
 	{
@@ -31,21 +27,17 @@ public class AIEnemy : MonoBehaviour
 	private void Update()
 	{
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (!playerInSightRange && !playerInAttackRange) Patrolling();
-        if (!playerInSightRange && playerInAttackRange) ChasePlayer();
+        if (!playerInSightRange) Patrolling();
+        else ChasePlayer();
     }
 
-    private void Patrolling()
+	private void Patrolling()
 	{
         if (!walkPointSet) SearchWalkPoint();
+        else if (walkPointSet) agent.SetDestination(walkPoint);
 
-        if (walkPointSet) agent.SetDestination(walkPoint);
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        Debug.Log(distanceToWalkPoint.magnitude);
-        if (distanceToWalkPoint.magnitude < 1f) walkPointSet = false;
+        
+        if (Vector3.Distance(transform.position, walkPoint) < 1f) walkPointSet = false; 
 	}
 
     private void SearchWalkPoint()
@@ -54,7 +46,7 @@ public class AIEnemy : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
+        
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround)) walkPointSet = true;
     }
 
