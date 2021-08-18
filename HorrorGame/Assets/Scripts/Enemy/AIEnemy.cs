@@ -8,6 +8,7 @@ public class AIEnemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
+    public HandlePlayer playerScript;
 
     //Patrolling
     public Vector3 walkPoint;
@@ -29,6 +30,7 @@ public class AIEnemy : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         if (!playerInSightRange) Patrolling();
         else ChasePlayer();
+
     }
 
 	private void Patrolling()
@@ -37,7 +39,7 @@ public class AIEnemy : MonoBehaviour
         else if (walkPointSet) agent.SetDestination(walkPoint);
 
         
-        if (Vector3.Distance(transform.position, walkPoint) < 1f) walkPointSet = false; 
+        if (Vector3.Distance(transform.position, walkPoint) < 5f) walkPointSet = false; 
 	}
 
     private void SearchWalkPoint()
@@ -53,5 +55,9 @@ public class AIEnemy : MonoBehaviour
     private void ChasePlayer()
 	{
         agent.SetDestination(player.position);
-	}
+        if (Vector3.Distance(transform.position, player.position) < 5f)
+		{
+            playerScript.ImDead = true;
+		}
+    }
 }
