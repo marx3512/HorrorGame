@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
 	{
 		quantText.text = quant + "/8";
 		if (playerHandler.ImDead) screenDead.SetActive(true);
+
+		//Controls
+		if (Input.GetJoystickNames().Length > 0) playerHandler.ControlIsConnected = true;
 	}
 
 	public void RestartGame()

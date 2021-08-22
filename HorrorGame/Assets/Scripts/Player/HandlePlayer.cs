@@ -15,6 +15,7 @@ public class HandlePlayer : MonoBehaviour
 	[SerializeField] private GameManager gm;
 
 	public bool ImDead = false;
+	public bool ControlIsConnected = false;
 
 	void Start()
 	{
@@ -27,11 +28,17 @@ public class HandlePlayer : MonoBehaviour
 		if(Physics.Raycast(camTransform.position, camTransform.forward, out hit, 500f, layer))
 		{
 			textObject.SetActive(true);
-			if (Input.GetMouseButtonDown(0))
+
+			if (Input.GetMouseButtonDown(0) && !ControlIsConnected)
 			{
 				Destroy(hit.transform.gameObject);
 				gm.quant++;
-			} 
+			}
+			else if(Input.GetButtonDown("Fire1") && ControlIsConnected)
+			{
+				Destroy(hit.transform.gameObject);
+				gm.quant++;
+			}
 		}
 		else textObject.SetActive(false);
 
