@@ -8,9 +8,16 @@ public class GameManager : MonoBehaviour
 {
 	public HandlePlayer playerHandler;
 
+	[SerializeField] private Transform posResSecondPlayer;
     public int quant = 0;
     public Text quantText;
-	public GameObject screenDead;
+	public GameObject screenDead,player;
+
+
+	public void Awake()
+	{
+		if (DataPlayers.cond == 2) Instantiate(player, posResSecondPlayer.position, Quaternion.identity);
+	}
 
 	private void Update()
 	{
