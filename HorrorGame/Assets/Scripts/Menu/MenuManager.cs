@@ -24,12 +24,13 @@ public class MenuManager : MonoBehaviour
 	{
 		if(x == 2)
 		{
-			if (Input.GetJoystickNames().Length <= 0) Debug.Log("Conecte um controle");
-			else
-			{
-				DataPlayers.cond = x;
-				SceneManager.LoadScene(1);
-			}
+			if (Input.GetJoystickNames().Length > 0) SceneManager.LoadScene(2);
+			else Debug.Log("Conecte um controle");
+			
+		}
+		else if(x == 1)
+		{
+			SceneManager.LoadScene(1);
 		}
 		
 	}

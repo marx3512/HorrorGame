@@ -13,19 +13,11 @@ public class GameManager : MonoBehaviour
     public Text quantText;
 	public GameObject screenDead,player;
 
-
-	public void Awake()
-	{
-		if (DataPlayers.cond == 2) Instantiate(player, posResSecondPlayer.position, Quaternion.identity);
-	}
-
 	private void Update()
 	{
 		quantText.text = quant + "/8";
 		if (playerHandler.ImDead) screenDead.SetActive(true);
 
-		//Controls
-		if (Input.GetJoystickNames().Length > 0) playerHandler.ControlIsConnected = true;
 	}
 
 	public void RestartGame()
