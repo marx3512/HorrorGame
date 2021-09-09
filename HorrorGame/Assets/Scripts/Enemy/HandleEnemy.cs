@@ -10,7 +10,7 @@ public class HandleEnemy : MonoBehaviour
 
 	private void Start()
 	{
-		playerTarget = GameObject.Find("Player");
+		playerTarget = GameObject.Find("Player1");
 	}
 
 	private void Update()
