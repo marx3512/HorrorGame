@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
-{
+{	
+	//Effect camera activate
+	[SerializeField] private Renderer enemyBody;
+	private CameraFilterPack_TV_VHS effectCam;
+
 	public HandlePlayer handlePlayer;
 
     public float mouseSensitivity = 200f;
@@ -12,8 +14,14 @@ public class MouseLook : MonoBehaviour
 
 	float xRotation = 0f;
 
+	private void Start() {
+		effectCam = GetComponent<CameraFilterPack_TV_VHS>();
+	}
+
 	public void Update()
 	{
+		if(enemyBody.isVisible) effectCam.enabled = true;
+		else effectCam.enabled = false;
 		if (!handlePlayer.ControlIsConnected)
 		{
 			float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
