@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 724415651406749946}
   - component: {fileID: 4441252538412052319}
   - component: {fileID: 1893351252625644437}
+  - component: {fileID: 4783854055628563577}
   m_Layer: 0
   m_Name: Tree3
   m_TagString: Untagged
@@ -85,3 +86,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &4783854055628563577
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91889068545505856}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 5.0610003, y: 13.866001, z: 5.0610003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.84400004, y: 13.842001, z: -0.24300002}
+  m_TimeToStationary: 0.5
