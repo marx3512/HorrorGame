@@ -24,6 +24,10 @@ public class AIEnemy : MonoBehaviour
     [SerializeField] private AudioClip soundClip;
     int condPlay = 0;
 
+    //Animations
+    [Header("Animations")]
+    [SerializeField] private Animator animator;
+
 	private void Awake()
 	{
         player = GameObject.Find("Player1").transform;
@@ -35,7 +39,7 @@ public class AIEnemy : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         if (!playerInSightRange) Patrolling();
         else ChasePlayer();
-
+        UpdateAnimator();
     }
 
 	private void Patrolling()
@@ -72,4 +76,11 @@ public class AIEnemy : MonoBehaviour
 		}
     }
 
+    private void UpdateAnimator()
+    {
+        Vector3 velocity = agent.velocity;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        float speed = localVelocity.z;
+        animator.SetFloat("Velocity", speed);
+    }
 }
