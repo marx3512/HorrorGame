@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour
 {
+    
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -18,6 +17,12 @@ public class AIEnemy : MonoBehaviour
     //States
     public float sightRange;
     public bool playerInSightRange;
+
+    //Sounds
+    [Header("Sounds")]
+    [SerializeField] private AudioSource sound;
+    [SerializeField] private AudioClip soundClip;
+    int condPlay = 0;
 
 	private void Awake()
 	{
@@ -55,9 +60,16 @@ public class AIEnemy : MonoBehaviour
     private void ChasePlayer()
 	{
         agent.SetDestination(player.position);
+        
         if (Vector3.Distance(transform.position, player.position) < 5f)
 		{
+            if(condPlay == 0){
+                sound.Stop();
+                sound.PlayOneShot(soundClip,1f);
+                condPlay = 1;
+            }
             playerScript.ImDead = true;
 		}
     }
+
 }

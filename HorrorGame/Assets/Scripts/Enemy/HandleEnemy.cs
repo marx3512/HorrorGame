@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HandleEnemy : MonoBehaviour
@@ -8,9 +6,12 @@ public class HandleEnemy : MonoBehaviour
 	[SerializeField] private GameObject enemy;
 	[SerializeField] private AIEnemy aiEnemyScript;
 
+	private AudioSource sound;
+
 	private void Start()
 	{
 		playerTarget = GameObject.Find("Player1");
+		sound = GetComponent<AudioSource>();
 	}
 
 	private void Update()

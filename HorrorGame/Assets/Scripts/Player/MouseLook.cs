@@ -3,7 +3,9 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {	
 	//Effect camera activate
+	[Header("Effect camera activate")]
 	[SerializeField] private Renderer enemyBody;
+	[SerializeField] private GameObject enemyObject;
 	private CameraFilterPack_TV_VHS effectCam;
 
 	public HandlePlayer handlePlayer;
@@ -20,7 +22,8 @@ public class MouseLook : MonoBehaviour
 
 	public void Update()
 	{
-		if(enemyBody.isVisible) effectCam.enabled = true;
+		if(enemyBody.isVisible && Vector3.Distance(transform.position,enemyObject.transform.position) < 26f) 
+			effectCam.enabled = true;
 		else effectCam.enabled = false;
 		if (!handlePlayer.ControlIsConnected)
 		{
